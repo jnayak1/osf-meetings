@@ -118,7 +118,3 @@ class UserDetail(APIView):
         user = User.objects.get(pk=user_id)
         userSerializer = UserSerializer(user, context={'request': request}, many=False)
         return Response(userSerializer.data)
-
-class AuthenticateUser(APIView):
-    resource_name = 'User'
-    serializer_class = AuthenticationSerializer
