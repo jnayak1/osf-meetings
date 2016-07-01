@@ -19,7 +19,7 @@ export default Ember.Route.extend({
 		//backend to check if the user is logged in, or if they need to go to login page
 		var code = this.$_GET('code');
 		if (code == '') {
-			window.location="https://staging-accounts.osf.io/oauth2/authorize?scope=osf.full_read+osf.full_write&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2Flogin&response_type=code&client_id=d5c46638ed1d42b9977264d084875c5a";
+			window.location="https://test-accounts.osf.io/oauth2/authorize?scope=osf.full_read+osf.full_write&redirect_uri=http%3A%2F%2Flocalhost%3A4200%2Flogin&response_type=code&client_id=daa66c0ca55744cea4600e464fe521ac";
 		} else {
 			Ember.$.ajax({
 				url: "http://localhost:8000/login?code=" + code,
