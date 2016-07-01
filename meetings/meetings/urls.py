@@ -21,5 +21,4 @@ urlpatterns = [
         views.SubmissionDetail.as_view(), name='submission-detail'),
     url(r'^login/', views.OsfAuthorizationCode.as_view(), name='login'),
     url(r'^admin/', admin.site.urls, name='admin'),
-    url(r'^authenticate/', views.AuthenticateUser.as_view(), name='authenticate'),
 ]
