@@ -30,10 +30,10 @@ class OsfAuthorizationCode(APIView):
         if code != None:
             post_data = { "grant_type": "authorization_code", "code": code, "redirect_uri": REDIRECT_URI, "client_id": CLIENT_ID, "client_secret": CLIENT_SECRET}
             oauth_response = requests.post(OSF_ACCOUNTS_URL + "oauth2/token", data=post_data)
+            USER_STORAGE[osf_uid] = oauth_response
             headers = {'Authorization': 'Bearer ' + oauth_response.json()['access_token']}
             osf_user = requests.get(OSF_API_URL + 'v2/users/me', headers=headers).json()
             osf_uid = osf_user['data']['id']
-            USER_STORAGE[osf_uid] = oauth_response
             user = authenticate(username=osf_uid, password='secret')
             if user:
                 # if user already has an account, log them in
