@@ -16,9 +16,12 @@
 npm-debug.log
 testem.log
 config/local.yml
-**/.DS_Store
+.editorconfig
 
 # Django
+/meetings/db*
+/meetings/api/migrations/0*
+
 db.sqlite3
 
 .DS_Store
@@ -32,8 +35,7 @@ MANIFEST
 dist/
 docs/_build/
 docs/locale/
-node_modules/
-tests/coverage_html/
+tests/coverage_html
 tests/.coverage
 build/
-tests/report/
+tests/report
