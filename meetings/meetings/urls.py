@@ -19,6 +19,6 @@ urlpatterns = [
     url(r'^conferences/(?P<conference_id>[0-9]+)/submissions/$', views.SubmissionList.as_view(), name='submission-list'),
     url(r'^conferences/(?P<conference_id>[0-9]+)/submissions/(?P<submission_id>[0-9]+)/$',
         views.SubmissionDetail.as_view(), name='submission-detail'),
-    url(r'^login/', views.OsfAuthorizationCode.as_view(), name='login'),
+    url(r'^login/', include('auth.urls', namespace='login')),
     url(r'^admin/', admin.site.urls, name='admin'),
 ]

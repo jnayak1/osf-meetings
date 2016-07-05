@@ -38,5 +38,3 @@ class Conference(models.Model):
     class Meta:
         ordering = ('created',)
 
-
-
