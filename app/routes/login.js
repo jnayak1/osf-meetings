@@ -29,7 +29,7 @@ export default Ember.Route.extend({
 				dataType: 'json',
 				contentType: 'text/plain',
 				xhrFields: {
-					withCredentials: false,
+					withCredentials: true,
 				}
 			}).then(function() {
 				self.transitionTo('index');
