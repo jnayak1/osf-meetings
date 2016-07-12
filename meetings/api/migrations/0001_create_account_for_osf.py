@@ -4,18 +4,32 @@ from __future__ import unicode_literals
 
 from django.db import migrations
 
+from django.contrib.auth.management import create_permissions
+
 
 class Migration(migrations.Migration):
 
-	def create_user_for_osf(apps, schema_editor):
-		User = apps.get_model("django.contrib.auth", "User")
-		osf = User.objects.create(username='osf', password='a very secret password') # make api call to OSF to get password?
-		osf.user_permissions.add('set_submission_contributor')
+    def create_user_for_osf(apps, schema_editor):
+        User = apps.get_model("auth", "User")
+        Permission = apps.get_model("auth", "Permission")
+        apps.models_module = True
+        create_permissions(apps, verbosity=0)
+        apps.models_module = None
 
+        osfPassword = 'a very secret password' # make api call to OSF to get password?
+        osf = User.objects.create(username='osf', password=osfPassword) 
+
+        set_submission_contributor_permission = Permission.objects.get(codename='set_submission_contributor')
+        osf.user_permissions.add(set_submission_contributor_permission)
+    
     dependencies = [
-    	('guardian', '0001_initial'),
+        ('contenttypes', '0002_remove_content_type_name'),
+        ('guardian', '0001_initial'),
+        ('auth', '0001_initial'),
+        ('conferences', '__first__'),
+        ('submissions', '__first__'),
     ]
-
+    
     operations = [
-    	migrations.RunPython(create_user_for_osf),
+        migrations.RunPython(create_user_for_osf),
     ]
