@@ -14,3 +14,6 @@ class Submission(models.Model):
 
     class Meta:
         ordering = ('date_created',)
+         permissions = (
+            ("set_submission_contributor", u"Can set submission contributor"),
+        )

@@ -10,9 +10,10 @@ class Migration(migrations.Migration):
 	def create_user_for_osf(apps, schema_editor):
 		User = apps.get_model("django.contrib.auth", "User")
 		osf = User.objects.create(username='osf', password='a very secret password') # make api call to OSF to get password?
-		
+		osf.user_permissions.add('set_submission_contributor')
 
     dependencies = [
+    	('guardian', '0001_initial'),
     ]
 
     operations = [
