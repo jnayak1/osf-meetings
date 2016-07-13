@@ -33,7 +33,7 @@ class OSFProvider(OAuth2Provider):
         return dict(
             # we could put more fields here later
             # the api has much more available, just not sure how much we need right now
-            username=data.get('id'),
+            username=self.extract_uid(data),
             first_name=attributes.get('given_name'),
             last_name=attributes.get('family_name'),
         )

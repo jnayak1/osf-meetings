@@ -1,12 +1,13 @@
-from rest_framework import serializers as ser
+from rest_framework_json_api import serializers as ser
+from rest_framework.reverse import reverse
 
 from submissions.models import Submission
 from conferences.models import Conference
 from api.serializers import UserSerializer
 
 
-class SubmissionSerializer(ser.HyperlinkedModelSerializer):
-    conference = ser.PrimaryKeyRelatedField(queryset=Conference.objects.all())
+class SubmissionSerializer(ser.ModelSerializer):
+    links = ser.SerializerMethodField()
     contributors = UserSerializer(many=True)
     node_id = ser.CharField(read_only=True)
 
@@ -21,7 +22,25 @@ class SubmissionSerializer(ser.HyperlinkedModelSerializer):
                 submission.contributors.add(contributor)
         return submission
 
-
     class Meta:
         model = Submission
-        fields = ('id', 'node_id', 'title', 'description', 'conference', 'contributors')
+        fields = ('id', 'node_id', 'title', 'description', 'conference',
+                  'contributors', 'links')
+
+    def get_links(self, obj):
+        request = self.context.get('request')
+        return {
+            'self': reverse(
+                'conferences:submissions:detail',
+                kwargs={
+                    'conference_id': obj.conference.id,
+                    'submission_id': obj.pk
+                },
+                request=request
+            ),
+            'conference': reverse(
+                'conferences:detail',
+                kwargs={'pk': obj.conference.id},
+                request=request
+            ),
+        }

@@ -1,22 +1,25 @@
-from rest_framework import serializers as ser
-from django_countries.fields import CountryField
+from rest_framework_json_api import serializers
+from rest_framework.reverse import reverse
 
 from conferences.models import Conference
 
-class ConferenceSerializer(ser.ModelSerializer):
-    country = CountryField() #get country_dict working later
-    start = ser.DateTimeField(source='event_start')
-    end = ser.DateTimeField(source='event_end')
-    submissionstart = ser.DateTimeField(source='submission_start')
-    submissionend = ser.DateTimeField(source='submission_end')
-    site = ser.URLField(required=False, allow_blank=True)
-    #url for now
-    logo = ser.URLField(required=False, allow_blank=True)
+class ConferenceSerializer(serializers.ModelSerializer):
+    links = serializers.SerializerMethodField()
 
-    # Later on add tags and sponsors back
     class Meta:
         model = Conference
 
-        fields = ('created', 'modified', 'id', 'title', 'logo', 'site', 'city',
-                'state', 'country', 'start', 'end', 'submissionstart', 
-                'submissionend', 'description')
+    def get_links(self, obj):
+        request = self.context.get('request')
+        return {
+            'self': reverse(
+                'conferences:detail',
+                kwargs={'pk': obj.pk},
+                request=request
+            ),
+            'submissions': reverse(
+                'conferences:submissions:list',
+                kwargs={'conference_id': obj.pk},
+                request=request
+            )
+        }

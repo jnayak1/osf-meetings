@@ -41,12 +41,10 @@ Splash page typography settings
 
 .conference-view-outer-container
 {
-  overflow: hidden;
-  margin-top: 80px;
+  margin-top: 40px;
 }
 .conference-view-inner-container
 {
-  overflow: hidden;
   padding-bottom: 80px;
 }
 .navbar-text
@@ -54,13 +52,19 @@ Splash page typography settings
   color: white;
   vertical-align: middle;
 }
+.navbar-background
+{
+  position: fixed;
+  background-color: transparent;
+  background-image: linear-gradient(to top,rgba(255,255,255,0),rgba(255,255,255,0.7),rgba(255,255,255,0.95));
+  border: none;
+}
 .tile-view
 {
-  max-height: 100vh;
-  overflow-y: scroll;
-  margin-left: 34px;
+  margin-left: 85px;
   padding-right: 34px;
-  padding-bottom: 80px
+  padding-bottom: 80px;
+  padding-top: 15px;
 }
 .tile
 {
@@ -73,6 +77,7 @@ Splash page typography settings
 {
   margin-top: 0;
   margin-bottom: 10px;
+  font-weight: 300;
 }
 .tile .tile-description
 {
@@ -95,43 +100,59 @@ Splash page typography settings
   transition: 0.2s ease;
   opacity: 0.1;
 }
+.more-conferences-button{
+  margin-top: 15px;
+}
 .masonry-grid
 {
   margin: 0 auto;
 }
+table 
+{
+  color: black;
+  border-collapse: collapse;
+  background-color: white;
+}
+td
+{
+  padding-top: .5em;
+  padding-bottom: .5em;
+}
 .table-view
 {
   width: 100%;
-  max-height: 100vh;
-  overflow-y: scroll;
-  padding-right: 17px;
-  margin-left: 20px;
 }
-.table-view tr:hover
+.table-head .col-md-4 h4
+{
+  font-weight: 300;
+}
+.table-view .row:hover
 {
   cursor: pointer;
-}
-.table-view td
-{
-  max-width: 475px;
-  border: none;
+  box-shadow: 0px 0px 3px 3px rgba(0,0,0,0.2);
+  transition: 0.3s ease;
 }
 .table-view td img
 {
   max-height: 80%;
   max-width: 100%;
 }
+.table-view .row 
+{
+  background-color: white;
+  margin-bottom: 15px;
+  padding: 5px;
+  transition: 0.3s ease;
+
+}
+.pagination 
+{
+  width: 100%;
+  text-align: center;
+}
 .hide-scroll
 {
   overflow-y: hidden;
-}
-.table-view .table tr:first-child td
-{
-  border-top: none;
-}
-.table-view .table tr>td
-{
-  padding: 15px;
 }
 .fade-background .form-control
 {

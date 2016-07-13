@@ -93,13 +93,13 @@
                         <hr>
                         <div class="col-lg-6">
                             <label for="city" class="form-control-label">Start</label>
-                            {{bs-datetimepicker date=model.newConf.start class="form-control" id='startDate'}}
+                            {{bs-datetimepicker date=model.newConf.eventStart class="form-control" id='startDate'}}
                         </div>
                         <div class="col-lg-6">
                             <label for="city" class="form-control-label">End</label>
-                            {{bs-datetimepicker date=model.newConf.end class="form-control" id='endDate'}}
+                            {{bs-datetimepicker date=model.newConf.eventEnd class="form-control" id='endDate'}}
                             {{#if this.displayErrors}}
-                                {{#each errors.model.newConf.start as |error|}}
+                                {{#each errors.model.newConf.eventStart as |error|}}
                                     <br><div class="alert alert-danger" role="alert">{{error}}</div>
                                 {{/each}}
                             {{/if}}
@@ -113,14 +113,14 @@
                         <div class="col-lg-6">
                             <label for="city" class="form-control-label">Start</label>
                             {{bs-datetimepicker
-                            date=model.newConf.submissionstart
+                            date=model.newConf.submissionStart
                             class="form-control" id='submissionDate'}}
                         </div>
                         <div class="col-lg-6">
                             <label for="city" class="form-control-label">End</label>
-                            {{bs-datetimepicker date=model.newConf.submissionend class="form-control" id='closeDate'}}
+                            {{bs-datetimepicker date=model.newConf.submissionEnd class="form-control" id='closeDate'}}
                             {{#if this.displayErrors}}
-                                {{#each errors.model.newConf.submissionstart as |error|}}
+                                {{#each errors.model.newConf.submissionStart as |error|}}
                                     <br><div class="alert alert-danger" role="alert">{{error}}</div>
                                 {{/each}}
                             {{/if}}
@@ -146,7 +146,7 @@
                                                             <h1>
                                                                 {{model.newConf.title}}</h1>
                                                             <h4>
-                                                                {{model.newConf.start}} - {{model.end}} </h4>
+                                                                {{model.newConf.eventStart}} - {{model.newConf.eventEnd}} </h4>
                                                             <h4>{{model.newConf.city}},
                                                                 {{model.newConf.state}},
                                                                 {{model.newConf.country}} </h4>

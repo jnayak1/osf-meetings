@@ -31,10 +31,9 @@ You will need the following things properly installed on your computer.
 
 1. `pip install -r requirements.txt`
 2. `cd <to-meetings-folder>`
-3. `./manage.py makemigrations`
-4. `./manage.py migrate`
-5. `./manage.py runserver`
-6. Visit the Django REST API interface at [http://localhost:8000](http://localhost:8000).
+3. `run the bash script with ./script.sh. Passing in a number will create randomly generated test data into the database. 
+    i.e. running ./script.sh 500 will create the database with 500 preloaded conferences.`
+4. Visit the Django REST API interface at [http://localhost:8000](http://localhost:8000).
 
 ## Running Ember APP / Development
 

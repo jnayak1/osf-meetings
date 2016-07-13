@@ -2,7 +2,7 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.response import Response
-
+from rest_framework import filters 
 from conferences.models import Conference
 from conferences.serializers import ConferenceSerializer
 
@@ -13,6 +13,8 @@ class ConferenceList(ListCreateAPIView):
 
     queryset = Conference.objects.all()
     serializer_class = ConferenceSerializer
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('title', 'description')
 
 
 # Detail of a conference

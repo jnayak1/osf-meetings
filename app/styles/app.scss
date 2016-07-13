@@ -5,10 +5,11 @@
 @import "register";
 @import "conference";
 
-h1,h2,h3,h4,h5,h6
+html, body 
 {
-  font-weight: 400;
+  font-family: 'Open Sans', sans-serif;
 }
+
 h1
 {
   font-size: 11.089em;
@@ -40,7 +41,7 @@ p
 
 .tile-view a, a:link, a:visited , a:hover, a:active
 {
-    color: white;
+    color: black;
     text-decoration: none;
 }
 
@@ -50,18 +51,21 @@ p
 }
 .navbar
 {
-  background-color: transparent;
-  background: transparent;
   border-color: transparent;
-  position: absolute;
+  position: fixed;
   left: 0;
+  margin-bottom: 45px;
 }
 .osf-light-background
 {
-  background-image: linear-gradient(to right, #4A8DB0, rgba(74, 141, 176, 0.26));
-  background-size: contain;
-  color: white;
+  background-image: url("/assets/bg6.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: repeat-y;
+  background-position-x: center;
+  background-position-y: top;
   min-height: 100%;
+  padding-top: 50px;
 }
 .osf-standard-background
 {
