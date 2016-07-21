@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'anymail',
     'django_inbound_email',
     'api',
+    'mail',
     'approvals',
     'conferences',
     'submissions',

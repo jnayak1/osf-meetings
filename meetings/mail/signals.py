@@ -7,6 +7,8 @@ import requests
 
 from django.core.mail import EmailMultiAlternatives
 from anymail.message import attach_inline_image_file
+from mail.mails import SubmissionSuccessEmail
+from django.conf import settings
 
 
 def get_file(attachment):
@@ -28,47 +30,19 @@ def on_email_received(sender, **kwargs):
         # before adding as the property.
         file = get_file(attachment)
         files.append(file)
-    try:
-        # create/get user
-        pass
-    except Exception, e:
-        print('Could not create user')
-        return
-    try:
-        # get conference
-        pass
-    except Exception, e:
-        print('Conference does not exist')
-        return
-    try:
-        # post to /submissions
-        pass
-    except Exception, e:
-        print('Invalid submission')
-        return
+
+
+    # create/get user
+    # get conference
+    # post to /submissions
+
     # send confirmation email
-    msg = EmailMultiAlternatives(
-        subject="Your submission was sucessful",
-        body="Congrats! Your submission here: ",
-        from_email="Example <admin@example.com>",
-        to=[from_email, ],
-        reply_to=["Helpdesk <support@example.com>"])
+    conf_short_name = to[0].trim('@osf.io')
 
-    # Include an inline image in the html:
-    logo_cid = attach_inline_image_file(msg, "/path/to/logo.jpg")
-    html = """<img alt="Logo" src="cid:{logo_cid}">
-	          <p>Please <a href="http://example.com/activate">activate</a>
-	          your account</p>""".format(logo_cid=logo_cid)
-    msg.attach_alternative(html, "text/html")
-
-    # Optional Anymail extensions:
-    msg.metadata = {}
-    msg.tags = []
-    msg.track_clicks = True
-
-    # Send it:
-    msg.send()
-
+    msg = SubmissionSuccessEmail(send_to=from_email, from_email=to[0], conf_full_name='',
+                 presentation_type='', node_url='', conf_view_url='',
+                 fullname='', user_created=True, is_spam=False, profile_url='')
+    # msg.send()
 
 # pass dispatch_uid to prevent duplicates:
 # https://docs.djangoproject.com/en/dev/topics/signals/
