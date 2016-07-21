@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'rest_framework_json_api',
     'oauth2_provider',
+    'anymail',
     'api',
     'approvals',
     'conferences',
@@ -179,3 +180,6 @@ LOGIN_REDIRECT_URL = 'http://localhost:4200'
 
 CLIENT_ID = ''
 CLIENT_SECRET = ''
+
+# https://github.com/anymail/django-anymail
+EMAIL_BACKEND = "anymail.backends.mailgun.MailgunBackend"

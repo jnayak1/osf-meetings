@@ -5,6 +5,9 @@ SECRET_KEY = ''  # Set to large random value in your local.py
 DEBUG = True
 CLIENT_ID = ''
 CLIENT_SECRET = ''
+ANYMAIL = {
+    "MAILGUN_API_KEY": "<your Mailgun key>",
+}
 
 # Database
 # POSTGRES_NAME = ''
