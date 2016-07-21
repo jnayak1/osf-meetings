@@ -183,7 +183,3 @@ CLIENT_SECRET = ''
 
 # https://github.com/anymail/django-anymail
 EMAIL_BACKEND = "anymail.backends.mailgun.MailgunBackend"
-MAILGUN_API_KEY = ''
-ANYMAIL = {
-    "MAILGUN_API_KEY": MAILGUN_API_KEY,
-}
