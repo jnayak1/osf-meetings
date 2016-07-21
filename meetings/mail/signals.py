@@ -14,11 +14,17 @@ def get_file(attachment):
 def on_email_received(sender, **kwargs):
     """Handle inbound emails."""
     email = kwargs.pop('email')
+    subject = email.subject
+    body = email.body
+    from_email = email.from_email
+    to = email.to
+    files = []
     for attachment in email.attachments:
         # we must convert attachment tuple into a file
         # before adding as the property.
         file = get_file(attachment)
-        # do something with file
+        files.append(file)
+    # do something with files and email
 
 # pass dispatch_uid to prevent duplicates:
 # https://docs.djangoproject.com/en/dev/topics/signals/
