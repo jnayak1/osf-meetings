@@ -3,6 +3,10 @@
 import logging
 from django_inbound_email.signals import email_received
 from django.core.files.uploadedfile import SimpleUploadedFile
+import requests
+
+from django.core.mail import EmailMultiAlternatives
+from anymail.message import attach_inline_image_file
 
 
 def get_file(attachment):
@@ -24,7 +28,47 @@ def on_email_received(sender, **kwargs):
         # before adding as the property.
         file = get_file(attachment)
         files.append(file)
-    # do something with files and email
+    try:
+        # create/get user
+        pass
+    except Exception, e:
+        print('Could not create user')
+        return
+    try:
+        # get conference
+        pass
+    except Exception, e:
+        print('Conference does not exist')
+        return
+    try:
+        # post to /submissions
+        pass
+    except Exception, e:
+        print('Invalid submission')
+        return
+    # send confirmation email
+    msg = EmailMultiAlternatives(
+        subject="Your submission was sucessful",
+        body="Congrats! Your submission here: ",
+        from_email="Example <admin@example.com>",
+        to=[from_email, ],
+        reply_to=["Helpdesk <support@example.com>"])
+
+    # Include an inline image in the html:
+    logo_cid = attach_inline_image_file(msg, "/path/to/logo.jpg")
+    html = """<img alt="Logo" src="cid:{logo_cid}">
+	          <p>Please <a href="http://example.com/activate">activate</a>
+	          your account</p>""".format(logo_cid=logo_cid)
+    msg.attach_alternative(html, "text/html")
+
+    # Optional Anymail extensions:
+    msg.metadata = {}
+    msg.tags = []
+    msg.track_clicks = True
+
+    # Send it:
+    msg.send()
+
 
 # pass dispatch_uid to prevent duplicates:
 # https://docs.djangoproject.com/en/dev/topics/signals/
