@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'rest_framework_json_api',
     'oauth2_provider',
     'anymail',
+    'django_inbound_email',
     'api',
     'approvals',
     'conferences',
@@ -183,3 +184,14 @@ CLIENT_SECRET = ''
 
 # https://github.com/anymail/django-anymail
 EMAIL_BACKEND = "anymail.backends.mailgun.MailgunBackend"
+
+# https://github.com/yunojuno/django-inbound-email
+# the fully-qualified path to the provider's backend parser
+INBOUND_EMAIL_PARSER = 'django_inbound_email.backends.mailgun.MailgunRequestParser'
+
+# if True (default=False) then log the contents of each inbound request
+INBOUND_EMAIL_LOG_REQUESTS = True
+
+# if True (default=True) then always return HTTP status of 200 (may be
+# required by provider)
+INBOUND_EMAIL_RESPONSE_200 = True
