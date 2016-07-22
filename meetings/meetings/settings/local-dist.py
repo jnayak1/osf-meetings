@@ -3,12 +3,12 @@
 
 SECRET_KEY = ''  # Set to large random value in your local.py
 DEBUG = True
-CLIENT_ID = ''
+# OAUTH developer app
+CLIENT_ID = ''  # needs to be completed in local.py
 CLIENT_SECRET = ''
-MAILGUN_API_KEY = ''
-ANYMAIL = {
-    "MAILGUN_API_KEY": MAILGUN_API_KEY,
-}
+# Mailgun
+MAILGUN_API_KEY = ''  # needs to be completed in local.py
+					  # to send emails
 
 # Database
 # POSTGRES_NAME = ''

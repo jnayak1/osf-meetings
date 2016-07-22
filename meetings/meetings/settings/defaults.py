@@ -196,3 +196,9 @@ INBOUND_EMAIL_LOG_REQUESTS = True
 # if True (default=True) then always return HTTP status of 200 (may be
 # required by provider)
 INBOUND_EMAIL_RESPONSE_200 = True
+
+# Needs to be completed in local.py
+MAILGUN_API_KEY = '' 
+ANYMAIL = {
+    "MAILGUN_API_KEY": MAILGUN_API_KEY,
+}
