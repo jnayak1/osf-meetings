@@ -7,7 +7,7 @@ import requests
 
 from django.core.mail import EmailMultiAlternatives
 from anymail.message import attach_inline_image_file
-from mail.mails import SubmissionSuccessEmail
+from mail.mails import SubmissionSuccessEmail, SubmissionConfDNE
 from django.conf import settings
 from conferences.models import Conference
 
@@ -32,8 +32,14 @@ def on_email_received(sender, **kwargs):
         file = get_file(attachment)
         files.append(file)
 
-    conf_identifier = to[0].strip('@osf.io').strip('poster').strip('talk')[:-1]
-    conf = Conference.objects.get(id=conf_identifier)
+    conf_identifier = to[0].strip('-poster@osf.io').strip('-talk@osf.io')
+    try:
+    	conf = Conference.objects.get(id=conf_identifier)
+    except Conference.DoesNotExist, e:
+    	msg = SubmissionConfDNE(to=from_email, from_email=to[0])
+    	# msg.send()
+    	return
+
 
     # create/get user
     # get conference
@@ -43,7 +49,7 @@ def on_email_received(sender, **kwargs):
     
     
 
-    msg = SubmissionSuccessEmail(send_to=from_email, from_email=to[0], conf_full_name='',
+    msg = SubmissionSuccessEmail(to=from_email, from_email=to[0], conf_full_name='',
                  presentation_type='', node_url='', conf_view_url='',
                  fullname='', user_created=True, is_spam=False, profile_url='')
     # msg.send()

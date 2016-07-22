@@ -5,14 +5,14 @@ from django.template.loader import get_template
 
 class SubmissionSuccessEmail(EmailMultiAlternatives):
 
-    def __init__(self, send_to=None, from_email=None, conf_full_name='',
+    def __init__(self, to=None, from_email=None, conf_full_name='',
                  presentation_type='', node_url='', conf_view_url='',
                  fullname='', user_created=True, is_spam=False, profile_url=''):
 
         subject = "Your submission to OSF for Meetings was succesful"
 
         super(SubmissionSuccessEmail, self).__init__(subject=subject,
-                                                     to=[send_to],
+                                                     to=[to],
                                                      from_email=from_email)
         success_template = get_template('conference_submitted.mako')
         success_context = Context({'conf_full_name': conf_full_name,
@@ -28,3 +28,17 @@ class SubmissionSuccessEmail(EmailMultiAlternatives):
         rendered_success_template = success_template.render(success_context)
         print(rendered_success_template)
         self.attach_alternative(rendered_success_template, "text/html")
+
+
+class SubmissionConfDNE(EmailMultiAlternatives):
+
+    def __init__(self, to=None, from_email=None, fullname=''):
+        super(SubmissionConfDNE, self).__init__()
+
+        subject = "There was an error with your submission to OSF for Meetings"
+        print('helloworld')
+        dne_template = get_template('conference_does_not_exist.mako')
+        dne_context = Context({'fullname': fullname, })
+        rendered_dne_template = dne_template.render(dne_context)
+        print(rendered_dne_template)
+        self.attach_alternative(rendered_dne_template, "text/html")
