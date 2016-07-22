@@ -36,8 +36,20 @@ class SubmissionConfDNE(EmailMultiAlternatives):
         super(SubmissionConfDNE, self).__init__()
 
         subject = "There was an error with your submission to OSF for Meetings"
-        print('helloworld')
         dne_template = get_template('conference_does_not_exist.mako')
+        dne_context = Context({'fullname': fullname, })
+        rendered_dne_template = dne_template.render(dne_context)
+        print(rendered_dne_template)
+        self.attach_alternative(rendered_dne_template, "text/html")
+
+
+class SubmissionWithoutFiles(EmailMultiAlternatives):
+
+    def __init__(self, to=None, from_email=None, fullname=''):
+        super(SubmissionWithoutFiles, self).__init__()
+
+        subject = "There was an error with your submission to OSF for Meetings"
+        dne_template = get_template('conference_without_files.mako')
         dne_context = Context({'fullname': fullname, })
         rendered_dne_template = dne_template.render(dne_context)
         print(rendered_dne_template)
