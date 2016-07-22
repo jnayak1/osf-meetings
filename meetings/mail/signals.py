@@ -9,6 +9,7 @@ from django.core.mail import EmailMultiAlternatives
 from anymail.message import attach_inline_image_file
 from mail.mails import SubmissionSuccessEmail
 from django.conf import settings
+from conferences.models import Conference
 
 
 def get_file(attachment):
@@ -31,13 +32,16 @@ def on_email_received(sender, **kwargs):
         file = get_file(attachment)
         files.append(file)
 
+    conf_identifier = to[0].strip('@osf.io').strip('poster').strip('talk')[:-1]
+    conf = Conference.objects.get(id=conf_identifier)
 
     # create/get user
     # get conference
     # post to /submissions
 
     # send confirmation email
-    conf_short_name = to[0].trim('@osf.io')
+    
+    
 
     msg = SubmissionSuccessEmail(send_to=from_email, from_email=to[0], conf_full_name='',
                  presentation_type='', node_url='', conf_view_url='',
