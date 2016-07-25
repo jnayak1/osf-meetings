@@ -8,7 +8,7 @@ CLIENT_ID = ''  # needs to be completed in local.py
 CLIENT_SECRET = ''
 # Mailgun
 MAILGUN_API_KEY = ''  # needs to be completed in local.py
-					  # to send emails
+# to send emails
 
 # Database
 # POSTGRES_NAME = ''
