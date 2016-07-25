@@ -19,7 +19,7 @@ class SubmissionSuccessEmail(EmailMultiAlternatives):
         conf_view_url = ''
         is_spam = False
         fullname = 'joe smith'  # get from user when implemented
-        success_template = get_template('conference_submitted.mako')
+        success_template = get_template('conference_submitted.html')
         success_context = Context({'conf_full_name': conf_full_name,
                                    'presentation_type': presentation_type,
                                    'set_password_url': set_password_url,
@@ -40,7 +40,7 @@ class SubmissionConfDNE(EmailMultiAlternatives):
         super(SubmissionConfDNE, self).__init__()
         self.subject = "There was an error with your submission to OSF for Meetings"
         fullname = 'joe smith'  # get from user when implemented
-        dne_template = get_template('conference_does_not_exist.mako')
+        dne_template = get_template('conference_does_not_exist.html')
         dne_context = Context({'fullname': fullname, })
         rendered_dne_template = dne_template.render(dne_context)
         self.attach_alternative(rendered_dne_template, "text/html")
@@ -52,7 +52,7 @@ class SubmissionWithoutFiles(EmailMultiAlternatives):
         super(SubmissionWithoutFiles, self).__init__()
         self.subject = "There was an error with your submission to OSF for Meetings"
         fullname = 'joe smith'  # get from user when implemented
-        template = get_template('conference_without_files.mako')
+        template = get_template('conference_without_files.html')
         context = Context({'fullname': fullname, })
         rendered_template = template.render(context)
         self.attach_alternative(rendered_template, "text/html")
