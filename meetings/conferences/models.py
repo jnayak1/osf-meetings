@@ -19,7 +19,7 @@ class Conference(models.Model):
     event_end = models.DateTimeField(blank=True, null=True)
     submission_start = models.DateTimeField(blank=True, null=True)
     submission_end = models.DateTimeField(blank=True, null=True)
-    logo = models.URLField(blank=True)
+    logo = models.ImageField(blank=True, upload_to='/conference_logos')
     description = models.TextField(blank=True, max_length=500)
     admin = models.ForeignKey(User, blank=True, null=True)
 
