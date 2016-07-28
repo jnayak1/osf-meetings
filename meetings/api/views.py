@@ -8,15 +8,6 @@ import requests
 import json
 
 
-class CheckLoggedInView(APIView):
-
-    def get(self, request, format=None):
-        if request.user.is_authenticated():
-            return Response('true')
-        else:
-            return Response('false')
-
-
 class CurrentUserView(APIView):
     base_url = '{}oauth2/{}'.format(
         OsfOauth2AdapterConfig.osf_accounts_url, '{}')
