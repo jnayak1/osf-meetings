@@ -14,7 +14,7 @@ export default Ember.Mixin.create({
                 withCredentials: true
             }
         }).then(function(loggedIn) {
-            if (!loggedIn.errors) {
+            if (loggedIn.errors) {
                 if (window.location.href !== config.meetingsHomeUrl) {
                     document.cookie = "redirectURL=" + window.location.href;
                 } else {
