@@ -180,6 +180,7 @@ OSF_API_URL = ('https://staging-api.osf.io').rstrip('/') + '/'
 OSF_ACCOUNTS_URL = ('https://staging-accounts.osf.io').rstrip('/') + '/'
 DEFAULT_SCOPES = ['osf.full_write', ]
 HUMANS_GROUP_NAME = 'OSF_USERS'
+OSF_MEETINGS_API_URL = 'http://localhost:8000'
 
 # Where users are redirected after login
 LOGIN_REDIRECT_URL = 'http://localhost:4200'

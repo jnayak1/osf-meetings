@@ -19,3 +19,4 @@ six==1.10.0
 django-autofixture==0.12.1
 django-anymail==0.4.2
 invoke==0.13.0
+django-filter==0.13.0

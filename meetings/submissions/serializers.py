@@ -23,9 +23,8 @@ class SubmissionSerializer(ser.ModelSerializer):
         request = self.context.get('request')
         return {
             'self': reverse(
-                'conferences:submissions:detail',
+                'submissions:detail',
                 kwargs={
-                    'conference_id': obj.conference.id,
                     'submission_id': obj.pk
                 },
                 request=request
