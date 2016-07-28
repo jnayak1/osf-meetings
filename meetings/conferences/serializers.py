@@ -6,8 +6,6 @@ from submissions.models import Submission
 from django.contrib.auth.models import User
 
 from django.core.files.base import ContentFile
-from rest_framework import serializers
-from django.core.files.base import ContentFile
 import base64
 import six
 import uuid
