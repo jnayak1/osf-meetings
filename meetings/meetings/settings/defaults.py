@@ -195,3 +195,8 @@ MAILGUN_API_KEY = ''
 ANYMAIL = {
     "MAILGUN_API_KEY": MAILGUN_API_KEY,
 }
+
+MEDIA_URL = '/conference_logos/'
+MEDIA_ROOT = ''
+STATIC_ROOT = ''
+STATIC_URL = '/static/'

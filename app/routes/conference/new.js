@@ -28,6 +28,10 @@ export default Ember.Route.extend(CheckLoginMixin, {
             newConf.save().then(function(params) {
                 router.transitionTo('conference.index', params.id);
             });
+        },
+        setLogo(value) {
+            this.currentModel.newConf.set('logo', value);
         }
-    }
+    },
+    
 });
