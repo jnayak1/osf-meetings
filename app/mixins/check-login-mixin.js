@@ -4,6 +4,7 @@ import config from '../config/environment';
 export default Ember.Mixin.create({
     //Overwrite redirectRoute function to return the route the user should transition to after logging in
     beforeModel: function() {
+
         var self = this;
         Ember.$.ajax({
             url: config.currentUser,
@@ -14,6 +15,11 @@ export default Ember.Mixin.create({
             }
         }).then(function(loggedIn) {
             if (loggedIn.data === 'false') {
+                if (window.location.href !== config.meetingsHomeUrl) {
+                    document.cookie = "redirectURL=" + window.location.href;
+                } else {
+                    document.cookie = "redirectURL=" + config.meetingsHomeUrl + "conference/new/";
+                }
                 self.transitionTo('login');
             }
         });

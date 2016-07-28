@@ -29,9 +29,9 @@ export default Ember.Component.extend({
                 withCredentials: true,
             }
         }).then(function(loggedIn) {
-            if (!(loggedIn.data.errors) && (loggedIn.data !== 'false')) {
+            if (!(loggedIn.errors)) {
                 self.set('authenticated', true);
-                self.set('user', loggedIn.data.data);
+                self.set('user', loggedIn.data);
             }
             else {
                 self.set('authenticated', false);

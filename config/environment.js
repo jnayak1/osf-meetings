@@ -32,7 +32,8 @@ module.exports = function(environment) {
         // ENV.APP.LOG_VIEW_LOOKUPS = true;
         ENV.meetingsUrl = 'http://localhost:8000';
         ENV.osfUrl = 'https://staging.osf.io/';
-        ENV.currentUser = 'http://localhost:8000/current/'
+        ENV.currentUser = 'http://localhost:8000/users/me'
+        ENV.meetingsHomeUrl = 'http://localhost:4200/';
     }
 
     if (environment === 'test') {
