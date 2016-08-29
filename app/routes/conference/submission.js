@@ -11,10 +11,11 @@ export default Ember.Route.extend({
 
     actions : {
         saveSubmission(newSubmission, drop, resolve) {
+            if(resolve){
                 newSubmission.save().then((newRecord) => {
                     drop.options.url = config.providers.osf.uploadsUrl + 
                         newRecord.get('nodeId') +
-                        '/providers/osfstorage/?kind=file&name=' + 
+                        '/providers/osfstorage/?name=' + 
                         drop.getQueuedFiles()[0].name;
                     newRecord.get('contributor').then((authUser) =>{
                         var authHeader = 'Bearer ' + authUser.get('token');
@@ -23,7 +24,16 @@ export default Ember.Route.extend({
                         };
                         resolve();
                     });      
-                });                     
+                });  
+            } else{
+                this.toast.error('Please attach a file to your submission');
+            }                 
+        },
+        cancelSubmission() {
+            var sub_to_cancel = this.currentModel;
+            var conf = sub_to_cancel.get('conference');
+            sub_to_cancel.unloadRecord();
+            this.transitionTo('conference.index', conf.get('id'));
         },
         preUpload(drop){
             drop.options.method = 'PUT';
@@ -33,7 +43,6 @@ export default Ember.Route.extend({
             var nodeId = successData['data']['attributes']['resource']; //osf node's id
             var submissions = this.get('store').peekAll('submission');
             var relatedSubmission = submissions.findBy('nodeId', nodeId);
-
             var newFile = this.get('store').createRecord('metafile', {
                 submission : relatedSubmission,
                 osfId : successData['data']['id'],

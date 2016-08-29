@@ -22,7 +22,6 @@ export default Ember.Route.extend({
         //component reusable
         toggleInfo() {
             let curInfo = this.controllerFor('index').get('info');
-            console.log(curInfo);
             if (curInfo === true){
                 Ember.$('#submission-instructions').hide(400);
             }

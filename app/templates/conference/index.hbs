@@ -27,16 +27,19 @@
                                         Location: {{model.conf.city}},
                                         {{model.conf.state}}, {{model.conf.country}}</h6>
                                     <div class="logo-view" align="center"></div>
-                                    <p class="conference-description"
-                                       style="font-size: 16px">Description: {{model.conf.description}}</p>
+                                    <p class="conference-description">
+                                        Description: {{model.conf.description}}
+                                    </p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="btn-group" role="group" aria-label="...">
                                             <button type="button" class="btn btn-default"
-                                            style="margin: 0 0 5px 0; width: 200px;"
-                                            {{action "toggleInfo"}}>Submit to This Conference</button>
+                                            {{action "toggleInfo"}}>
+                                                Add a submission
+                                                <span class="glyphicon glyphicon-chevron-down"></span>
+                                            </button>
                                     </div>
                                 </div>
                             </div>
@@ -89,7 +92,7 @@
                                     </table>
                                 {{/if}}
                                 {{#unless (isEqual model.conf.submissionCount model.conf.mySubmissionCount)}}
-                                    <h4>Submissions to {{model.conf.title}}</h4>
+                                    <h5>Submissions to conference</h5>
                                     <table class="table table-hover">
                                         <thead class="thead">
                                             <tr>
@@ -117,7 +120,7 @@
                                                         </td>
                                                         <td class="tableCategory" style="color: #000000">{{item.category}}</td>
                                                         <td class="tableDate" style="color: #000000">{{item.dateCreated}}</td>
-                                                        <td class="tableDownload" style="color: #000000 text-align: center">
+                                                        <td class="tableDownload" style="color: #000000; text-align: center">
                                                             <button
                                                                 type='btn-success'
                                                                 {{action "download" metafiles.osfUrl}}>

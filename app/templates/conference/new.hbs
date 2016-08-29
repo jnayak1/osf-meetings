@@ -10,10 +10,18 @@
                         <div class="col-lg-6" id="titleScroll">
                             <label for="title">Title</label>
                             {{validator-input tagType='input' type='text'
-                                 model=model.newConf valuePath='title' placeholder='Title'}}
+                                model=model.newConf valuePath='title'
+                                placeholder='e.g., Python Conference 2016'}}
+                            <label for="city" >Short conference ID</label>
+                            {{validator-input tagType='input' type='text'
+                                model=model.newConf valuePath='id'
+                                placeholder='e.g., pycon2016'}}
                             <br>
                             <label for="website">Website</label>
-                            {{input type='text' value=model.newConf.site class="form-control form-spacing" placeholder="Conference Website" id="website"}}
+                            {{input type='text' value=model.newConf.site
+                                class="form-control form-spacing"
+                                placeholder="www.example-conference.com"
+                                id="website"}}
 
                             <label for="city">Logo</label>
                             {{upload-widget
@@ -34,9 +42,7 @@
                             {{/if}}
                         </div>
                         <div class="col-lg-6">
-                            <label for="city" >Conference Identifier</label>
-                            {{validator-input tagType='input' type='text'
-                                 model=model.newConf valuePath='id' placeholder='Conference Identifier'}}
+
                         </div>
                     </div>
                     <div class="form-group row fade-background">
