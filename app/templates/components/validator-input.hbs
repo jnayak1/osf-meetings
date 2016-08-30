@@ -7,6 +7,17 @@
     {{textarea value=value class='form-control resize' name=valuePath}}
 {{/if}}
 
+{{#if (eq tagType 'select')}}
+     <select class="form-control form-spacing" name={{valuePath}} onchange={{action (mut field) value="target.value"}}>
+        <option value=''>{{placeHolder}}</option>
+        {{#each choices as |choice|}}
+            <option value={{choice.value}}>
+            {{choice.display_name}}
+            </option>
+        {{/each}}
+    </select>
+{{/if}}
+
 {{#if isValid}}
     <div class="valid-input">
         <span class="fa fa-check"></span>

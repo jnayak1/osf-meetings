@@ -22,6 +22,9 @@ var Validations = buildValidations({
             })
         ]
     },
+    country: {
+        validators: [ validator('presence', true) ]
+    },
     city: {
         description: 'City',
         validators: [ validator('presence', true) ]

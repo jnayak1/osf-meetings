@@ -53,16 +53,13 @@
                                 <label for="country" id="countryScroll">
                                     Country
                                 </label>
-                                <select class="form-control form-spacing"
-                                        onchange={{action (mut model.newConf.country) value="target.value"}}>
-                                    <option value=''>select a country</option>
-                                    {{#each model.meta.data.actions.POST.country.choices
-                                        as |countryChoice|}}
-                                        <option value={{countryChoice.value}}>
-                                        {{countryChoice.display_name}}
-                                        </option>
-                                    {{/each}}
-                                </select>
+                                {{validator-input tagType='select' 
+                                    model=model.newConf
+                                    field=model.newConf.country
+                                    valuePath='country' 
+                                    choices=model.meta.data.actions.POST.country.choices
+                                    placeHolder="Select a country"
+                                }}
                             </div>
                             <div>
                                 <label for="state" id="stateScroll">
