@@ -28,6 +28,9 @@ export default Ember.Route.extend({
             var router = this;
             newConference.save().then((conf) => {
                 if(resolve){
+                    this.toast.info('Uploading file...', '', {
+                        progressBar: false
+                    });
                     resolve();
                 } else{
                     router.transitionTo('conference.index', conf.get('id'));
@@ -40,6 +43,7 @@ export default Ember.Route.extend({
             this.store.findRecord('upload', successData.id).then((newUpload) => {
                 conf.set('logo', newUpload);
                 conf.save().then( ()=>{
+                    this.toast.clear();
                     router.transitionTo('conference.index', conf.get('id'));
                 });
             });
