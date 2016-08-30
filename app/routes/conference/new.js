@@ -29,7 +29,8 @@ export default Ember.Route.extend({
             newConference.save().then((conf) => {
                 if(resolve){
                     this.toast.info('Uploading file...', '', {
-                        progressBar: false
+                        progressBar: false,
+                        timeOut: 0,  // doesn't timeout
                     });
                     resolve();
                 } else{

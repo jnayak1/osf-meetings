@@ -14,6 +14,7 @@ export default Ember.Route.extend({
             if(resolve){
                 this.toast.info('Uploading File...', '', {
                     progressBar: false,
+                    timeout: 0  // doesn't timeout
                 });
                 newSubmission.save().then((newRecord) => {
                     drop.options.url = config.providers.osf.uploadsUrl + 
