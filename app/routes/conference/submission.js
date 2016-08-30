@@ -11,27 +11,24 @@ export default Ember.Route.extend({
 
     actions : {
         saveSubmission(newSubmission, drop, resolve) {
-            if(resolve){
-                this.toast.info('Uploading File...', '', {
+             this.toast.info('Uploading File...', '', {
                     progressBar: false,
                     timeout: 0  // doesn't timeout
+            });
+            newSubmission.save().then((newRecord) => {
+                drop.options.url = config.providers.osf.uploadsUrl +
+                    newRecord.get('nodeId') +
+                    '/providers/osfstorage/?kind=file&name=' +
+                    drop.getQueuedFiles()[0].name;
+
+                newRecord.get('contributor').then((authUser) =>{
+                    var authHeader = 'Bearer ' + authUser.get('token');
+                    drop.options.headers = {
+                        'Authorization' : authHeader
+                    };
+                    resolve();
                 });
-                newSubmission.save().then((newRecord) => {
-                    drop.options.url = config.providers.osf.uploadsUrl + 
-                        newRecord.get('nodeId') +
-                        '/providers/osfstorage/?name=' + 
-                        drop.getQueuedFiles()[0].name;
-                    newRecord.get('contributor').then((authUser) =>{
-                        var authHeader = 'Bearer ' + authUser.get('token');
-                        drop.options.headers = {
-                            'Authorization' : authHeader
-                        };
-                        resolve();
-                    });      
-                });  
-            } else{
-                this.toast.error('Please attach a file to your submission');
-            }                 
+            });
         },
         cancelSubmission() {
             var sub_to_cancel = this.currentModel;

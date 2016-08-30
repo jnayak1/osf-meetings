@@ -3,7 +3,8 @@ from collections import OrderedDict
 import mock
 import factory
 from submissions.models import Submission
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
+from django.conf import settings
 from test_factories import (
     UserFactory, SubmissionFactory, ConferenceFactory,
     SocialAccountFactory, SocialTokenFactory,
@@ -14,7 +15,7 @@ from serializers import SubmissionSerializer
 from views import SubmissionViewSet
 
 
-class TestPermissions(TestCase):
+class TestApprovedPermissions(TestCase):
     def setUp(self):
         self.user1 = UserFactory(
             username='user1'
@@ -22,7 +23,10 @@ class TestPermissions(TestCase):
         self.user2 = UserFactory(
             username='user2'
         )
-        self.user3 = User.objects.get(username='AnonymousUser')
+        self.joe = UserFactory(username='joe')
+        group = Group.objects.get(name=settings.HUMANS_GROUP_NAME)
+        group.user_set.add(self.joe)
+        self.public = User.objects.get(username='AnonymousUser')
         self.conference = ConferenceFactory(
             admin=self.user1,
             id='conferenceId'
@@ -31,20 +35,52 @@ class TestPermissions(TestCase):
             contributor=self.user2,
             conference=self.conference,
             approval=factory.SubFactory(ApprovalFactory, approved=True)
-            )
+        )
+        self.submission2 = SubmissionFactory(
+            contributor=self.user2,
+            conference=self.conference,
+            approval=factory.SubFactory(ApprovalFactory, approved=False)
+        )
 
-    def test_permissions(self):
+    def test_admin_permission(self):
         self.assertTrue(self.user1.has_perm('view_submission', self.submission))
-        self.assertTrue(self.user2.has_perm('view_submission', self.submission))
-        self.assertTrue(self.user3.has_perm('view_submission', self.submission))
-
         self.assertTrue(self.user1.has_perm('change_submission', self.submission))
-        self.assertTrue(self.user2.has_perm('change_submission', self.submission))
-        self.assertFalse(self.user3.has_perm('change_submission', self.submission))
-
         self.assertTrue(self.user1.has_perm('delete_submission', self.submission))
+
+    def test_contributor_permission(self):
+        self.assertTrue(self.user2.has_perm('view_submission', self.submission))
+        self.assertTrue(self.user2.has_perm('change_submission', self.submission))
         self.assertTrue(self.user2.has_perm('delete_submission', self.submission))
-        self.assertFalse(self.user3.has_perm('delete_submission', self.submission))
+
+    def test_public_permissions(self):
+        self.assertTrue(self.public.has_perm('view_submission', self.submission))
+        self.assertFalse(self.public.has_perm('change_submission', self.submission))
+        self.assertFalse(self.public.has_perm('delete_submission', self.submission))
+
+    def test_logged_in_permissions(self):
+        self.assertTrue(self.joe.has_perm('view_submission', self.submission))
+        self.assertFalse(self.joe.has_perm('change_submission', self.submission))
+        self.assertFalse(self.joe.has_perm('delete_submission', self.submission))
+
+    def test_admin_permission_unapproved(self):
+        self.assertTrue(self.user1.has_perm('view_submission', self.submission2))
+        self.assertTrue(self.user1.has_perm('change_submission', self.submission2))
+        self.assertTrue(self.user1.has_perm('delete_submission', self.submission2))
+
+    def test_contributor_permission_unapproved(self):
+        self.assertTrue(self.user2.has_perm('view_submission', self.submission2))
+        self.assertTrue(self.user2.has_perm('change_submission', self.submission2))
+        self.assertTrue(self.user2.has_perm('delete_submission', self.submission2))
+
+    def test_public_permissions_unapproved(self):
+        self.assertFalse(self.public.has_perm('view_submission', self.submission2))
+        self.assertFalse(self.public.has_perm('change_submission', self.submission2))
+        self.assertFalse(self.public.has_perm('delete_submission', self.submission2))
+
+    def test_logged_in_permissions_unapproved(self):
+        self.assertFalse(self.joe.has_perm('view_submission', self.submission2))
+        self.assertFalse(self.joe.has_perm('change_submission', self.submission2))
+        self.assertFalse(self.joe.has_perm('delete_submission', self.submission2))
 
 
 class TestSerializers(TestCase):

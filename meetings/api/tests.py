@@ -1,5 +1,15 @@
 from django.test import TestCase
 from unittest import skip
+import factory
+import factory.fuzzy
+from django.contrib.auth.models import User
+
+
+class UserFactory(factory.Factory):
+    class Meta:
+        model = User
+
+    email = factory.fuzzy.FuzzyText(length=10, suffix='@email.org')
 
 
 class TestCheckLoggedIn(TestCase):

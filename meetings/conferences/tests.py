@@ -1,4 +1,6 @@
 from django.test import TestCase, RequestFactory
+from django.contrib.auth.models import User, Group
+from django.conf import settings
 import factory
 from permissions import ConferencePermissions
 from serializers import ConferenceSerializer
@@ -16,20 +18,63 @@ class TestPermissions(TestCase):
         self.user2 = UserFactory(
             username='user2'
         )
+        group = Group.objects.get(name=settings.HUMANS_GROUP_NAME)
+        group.user_set.add(self.user2)
+        self.joe = UserFactory(username='joe')
+        group.user_set.add(self.joe)
+        self.public = User.objects.get(username="AnonymousUser")
         self.conference = ConferenceFactory(
             admin=self.user1,
             id='conferenceId'
         )
+        self.submission = SubmissionFactory(
+            contributor=self.user2,
+            conference=self.conference,
+        )
 
-    def test_conference_permissions(self):
+    def test_admin_permissions(self):
         self.assertTrue(
-            self.user1.has_perm('change_conference', self.conference))
-        self.assertFalse(
-            self.user2.has_perm('change_conference', self.conference))
+            self.user1.has_perm('change_conference', self.conference)
+        )
         self.assertTrue(
-            self.user1.has_perm('delete_conference', self.conference))
+            self.user1.has_perm('view_conference', self.conference)
+        )
+        self.assertTrue(
+            self.user1.has_perm('delete_conference', self.conference)
+        )
+
+    def test_contributor_permissions(self):
         self.assertFalse(
-            self.user2.has_perm('delete_conference', self.conference))
+            self.user2.has_perm('change_conference', self.conference)
+        )
+        self.assertTrue(
+            self.user2.has_perm('view_conference', self.conference)
+        )
+        self.assertFalse(
+            self.user2.has_perm('delete_conference', self.conference)
+        )
+
+    def test_logged_in_permissions(self):
+        self.assertFalse(
+            self.joe.has_perm('change_conference', self.conference)
+        )
+        self.assertTrue(
+            self.joe.has_perm('view_conference', self.conference)
+        )
+        self.assertFalse(
+            self.joe.has_perm('delete_conference', self.conference)
+        )
+
+    def test_public_permissions(self):
+        self.assertFalse(
+            self.public.has_perm('change_conference', self.conference)
+        )
+        self.assertTrue(
+            self.public.has_perm('view_conference', self.conference)
+        )
+        self.assertFalse(
+            self.public.has_perm('delete_conference', self.conference)
+        )
 
 
 class TestSerializers(TestCase):
