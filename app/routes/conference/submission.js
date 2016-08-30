@@ -12,6 +12,9 @@ export default Ember.Route.extend({
     actions : {
         saveSubmission(newSubmission, drop, resolve) {
             if(resolve){
+                this.toast.info('Uploading File...', '', {
+                    progressBar: false,
+                });
                 newSubmission.save().then((newRecord) => {
                     drop.options.url = config.providers.osf.uploadsUrl + 
                         newRecord.get('nodeId') +
@@ -54,6 +57,7 @@ export default Ember.Route.extend({
                 //do toast here
                 var submission = file.get('submission');
                 var conf = submission.get('conference');
+                this.toast.clear();
                 router.transitionTo('conference.index', conf.get('id'));
             });
         }
