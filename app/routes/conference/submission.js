@@ -31,7 +31,7 @@ export default Ember.Route.extend({
                     });
                 });
             } else {
-                this.toast.error('Please attach a file to your submission.')
+                this.toast.error('Please attach a file to your submission.');
             }
         },
         cancelSubmission() {
