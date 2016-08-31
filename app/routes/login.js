@@ -3,7 +3,8 @@ import config from '../config/environment';
 
 export
 default Ember.Route.extend({
-    activate: function() {
-        window.location = config.providers.osfMeetings.apiUrl + "accounts/login/";
+    beforeModel: function() {
+        var nextQueryParam = "?next=" + window.location;
+        window.location = config.providers.osfMeetings.loginUrl + nextQueryParam;                      
     }
 });

@@ -6,6 +6,9 @@ default Ember.Route.extend({
         logout: function() {
             this.transitionTo('logout');
         },
+        login: function() {
+            this.transitionTo('login');
+        },
         filter(params) {
             this.transitionTo('index', {
                 queryParams: {
