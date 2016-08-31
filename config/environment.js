@@ -38,7 +38,8 @@ module.exports = function(environment) {
                 "currentUser": "http://localhost:8000/users/me/",
                 "uploadsUrl": "http://localhost:8000/uploads/",
                 "uploadMultiple": false,
-                "loginUrl" : "http://localhost:8000/accounts/login/"
+                "loginUrl": "http://localhost:4200/login",
+                "apiLoginUrl" : "http://localhost:8000/accounts/login/"
             },
             "osf": {
                 "host": "https://staging.osf.io/",

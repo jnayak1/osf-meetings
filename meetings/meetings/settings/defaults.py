@@ -232,7 +232,7 @@ HUMANS_GROUP_NAME = 'OSF_USERS'
 # Where users get redirected after logout (django allauth)
 ACCOUNT_LOGOUT_REDIRECT_URL = 'http://localhost:4200'
 
-OSF_MEETINGS_HOME_URL = 'http://localost:4200'
+OSF_MEETINGS_HOME_URL = 'http://localhost:4200'
 
 CLIENT_ID = ''
 CLIENT_SECRET = ''
