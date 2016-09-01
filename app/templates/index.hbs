@@ -4,7 +4,7 @@
   <div class="row conference-view-outer-container" id="indexBottom">
     <div class="col-md-10 col-md-offset-1">
       <div class="col-md-10 col-md-offset-1 tile-view fade-background">
-        <button class="btn btn-success navbar-btn" {{action "toggleInfo"}}>
+        <button class="btn btn-success navbar-btn" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
           <span class="glyphicon glyphicon-plus"></span>
           Register a Meeting
         </button>
@@ -14,23 +14,25 @@
         <button id="listButton" class="btn btn-default navbar-btn" {{action "listView"}}>
           <span class="glyphicon glyphicon-th-list"></span>
         </button>
-        <div class="row" id="submission-instructions">
-          <div class="col-md-6">
+        <div class="row">
+          <div class="collapse" id="collapseExample">
+            <div class="col-md-6">
               <div class="submission-modal">
-              <h5><strong>Create through email</strong></h5>
-              <h6>OSF for Meetings is a product that we offer to academic conferences at no cost. To request poster and talk hosting for a conference:</h6>
+                <h5><strong>Create through email</strong></h5>
+                <h6>OSF for Meetings is a product that we offer to academic conferences at no cost. To request poster and talk hosting for a conference:</h6>
 
-              <strong>Email us at <span style="color: blue;">contact@cos.io</span></strong>
+                <strong>Email us at <span style="color: blue;">contact@cos.io</span></strong>
 
-              <h6>We'll review and add your conference within one business day.</h6>
+                <h6>We'll review and add your conference within one business day.</h6>
               </div>
-          </div>
-          <div class="col-md-6">
+            </div>
+            <div class="col-md-6">
               <div class="btn-group submission-modal" role="group" aria-label="...">
                   <h5><strong>Create Here:</strong></h5>
                   <h6>You can also use our conference creation form to set up your meeting here</h6>
                       <button type="button" class="btn btn-success" style="margin: 0 0 5px 0; width: 200px;" {{action "create"}}><span class="glyphicon glyphicon-plus"></span>  Create a Conference</button>
               </div>
+            </div>
           </div>
         </div>
         <div class="row">
@@ -72,9 +74,9 @@
   <div class="row conference-view-outer-container">
     <div class="col-md-10 col-md-offset-1 ">
       <div class="col-md-10 col-md-offset-1 fade-background table-view">
-        <button class="btn btn-success navbar-btn" {{action "toggleInfo"}}>
+        <button class="btn btn-success navbar-btn" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
           <span class="glyphicon glyphicon-plus"></span>
-          Create a Meeting
+          Register a Meeting
         </button>
         <button id="tileButton" class="btn btn-default navbar-btn" {{action "tileView"}}>
           <span class="glyphicon glyphicon-th-large"></span>
@@ -82,23 +84,25 @@
         <button id="listButton" class="btn btn-default navbar-btn" {{action "listView"}}>
           <span class="glyphicon glyphicon-th-list"></span>
         </button>
-        <div class= "row" id="submission-instructions">
-          <div class="col-md-6">
+        <div class="row">
+          <div class="collapse" id="collapseExample">
+            <div class="col-md-6">
               <div class="submission-modal">
-              <h5><strong>Create through email</strong></h5>
-              <h6>OSF for Meetings is a product that we offer to academic conferences at no cost. To request poster and talk hosting for a conference:</h6>
+                <h5><strong>Create through email</strong></h5>
+                <h6>OSF for Meetings is a product that we offer to academic conferences at no cost. To request poster and talk hosting for a conference:</h6>
 
-              <strong>Email us at <span style="color: blue;">contact@cos.io</span></strong>
+                <strong>Email us at <span style="color: blue;">contact@cos.io</span></strong>
 
-              <h6>We'll review and add your conference within one business day.</h6>
+                <h6>We'll review and add your conference within one business day.</h6>
               </div>
-          </div>
-          <div class="col-md-6">
+            </div>
+            <div class="col-md-6">
               <div class="btn-group submission-modal" role="group" aria-label="...">
                   <h5><strong>Create Here:</strong></h5>
                   <h6>You can also use our conference creation form to set up your meeting here</h6>
                       <button type="button" class="btn btn-success" style="margin: 0 0 5px 0; width: 200px;" {{action "create"}}><span class="glyphicon glyphicon-plus"></span>  Create a Conference</button>
               </div>
+            </div>
           </div>
         </div>
         
