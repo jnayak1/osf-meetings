@@ -97,19 +97,6 @@ export default Ember.Route.extend({
                     p: 1
                 }
             });
-        },
-        toggleInfo() {
-            //this needs fixing
-            //most likely will need to be a component
-            let curInfo = this.controllerFor('index').get('info');
-            console.log(curInfo);
-            if (curInfo === true){
-                Ember.$('#submission-instructions').hide(400);
-            }
-            else {
-                Ember.$('#submission-instructions').show(400);
-            }
-            this.controllerFor('index').set('info', !curInfo);
         }
     }
 });
