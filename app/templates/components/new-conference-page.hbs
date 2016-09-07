@@ -1,0 +1,141 @@
+<div class="container-fluid">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form>
+                    <h4>Create a New Conference </h4>
+                    <div class="form-group row fade-background">
+                        <div class="section-header">IDENTIFY</div>
+                        <hr>
+                        <div class="col-lg-6" id="titleScroll">
+                            <label for="title">Title</label>
+                            {{validator-input tagType='input' type='text'
+                                model=newConf valuePath='title'
+                                placeholder='e.g., Python Conference 2016'}}
+                            <label for="city" >Short conference ID</label>
+                            {{validator-input tagType='input' type='text'
+                                model=newConf valuePath='id'
+                                placeholder='e.g., pycon2016'}}
+                            <br>
+                            <label for="website">Website</label>
+                            {{input type='text' value=newConf.site
+                                class="form-control form-spacing"
+                                placeholder="www.example-conference.com"
+                                id="website"}}
+
+                            <label for="city">Logo</label>
+                            {{upload-widget
+                                success=(route-action "success")
+                                preUpload=(route-action "preUpload")
+                                resolve=resolveUpload
+                                dropZone=drop
+                                fullPreview=fullPreview
+                            }}
+
+                            {{!-- Keeping Description as normal textarea to allow for twitter style countdown, may have to change this later--}}
+                            <label for="description"  id="descriptionScroll">
+                                Description:</label>
+
+                            <div id="remaining"></div>
+                            {{textarea value=newConf.description class="form-control resize" id="description" key-up="count" }}
+                            {{#if newConf.description}}
+                                {{error-message model=newConf field='description'}}
+                            {{/if}}
+                        </div>
+                        <div class="col-lg-6">
+
+                        </div>
+                    </div>
+                    <div class="form-group row fade-background">
+                        <div class="section-header">LOCATE</div>
+                        <hr>
+                        <div class="col-lg-6">
+                            <div>
+                                <label for="country" id="countryScroll">
+                                    Country
+                                </label>
+                                <select class="form-control form-spacing"
+                                        onchange={{action (mut newConf.country) value="target.value"}}>
+                                    <option value=''>select a country</option>
+                                    {{#each meta.data.actions.POST.country.choices
+                                        as |countryChoice|}}
+                                        <option value={{countryChoice.value}}>
+                                        {{countryChoice.display_name}}
+                                        </option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div>
+                                <label for="state" id="stateScroll">
+                                    State
+                                </label>
+                                {{validator-input tagType='input' model=newConf
+                                    valuePath='state' placeholder='State'}}
+                            </div>
+                            <div>
+                                <label for="city" id="cityScroll">City</label>
+                                {{validator-input tagType='input' model=newConf
+                                    valuePath='city' placeholder='City'}}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group row fade-background">
+                        <div class="section-header" id="dateScroll">CONFERENCE WINDOW</div>
+                        <hr>
+                        <div class="col-lg-6">
+                            <label for="city">Start</label>
+                            {{bs-datetimepicker date=newConf.eventStart class="form-control" id='startDate'}}
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="city">End</label>
+                            {{bs-datetimepicker date=newConf.eventEnd class="form-control" id='endDate'}}
+                            {{newConf.eventEnd}}
+                        </div>
+                    </div>
+
+                    <div class="form-group row fade-background">
+                        <div class="section-header">SUBMISSION WINDOW</div>
+                        <hr>
+                        <div class="col-lg-6">
+                            <label for="city">Start</label>
+                            {{bs-datetimepicker
+                            date=newConf.submissionStart
+                            class="form-control" id='submissionDate'}}
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="city">End</label>
+                            {{bs-datetimepicker date=newConf.submissionEnd class="form-control" id='closeDate'}}
+                            {{#if this.displayErrors}}
+                                {{#each errors.newConf.submissionStart as |error|}}
+                                    <br><div class="alert alert-danger" role="alert">{{error}}</div>
+                                {{/each}}
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="form-group row fade-background" >
+                        <div class="col-md-4">
+                            <button class="btn btn-danger" {{action "back"}}>Cancel</button>
+                            <button class="btn btn-success" disabled={{v-get newConf 'isInvalid'}} {{action "saveConference" newConf drop resolveUpload}}>
+                                Create
+                            </button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-primary" {{action (route-action "preview" conference fullPreview)}}>Preview</button>
+                            {{#if preview}}
+                                <div class="modal fade" tabindex="-1" role="dialog">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      {{conference-page conf=newConf allSubmissions=allSubmissions}}
+                                    </div><!-- /.modal-content -->
+                                  </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+                            {{/if}}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

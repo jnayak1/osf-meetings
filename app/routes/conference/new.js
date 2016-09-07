@@ -6,7 +6,7 @@ export default Ember.Route.extend({
 
     model() {
         return Ember.RSVP.hash({
-                meta : Ember.$.ajax({
+            meta : Ember.$.ajax({
                 url : config.providers.osfMeetings.apiUrl + "conferences/",
                 type : "OPTIONS",
                 xhrFields : {
