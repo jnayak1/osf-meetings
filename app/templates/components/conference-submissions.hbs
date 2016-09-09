@@ -1,0 +1,73 @@
+{{#if conf.submissionCount}}
+    {{#if conf.mySubmissionCount}}
+        <h5>My Submissions</h5>
+        <table class="table table-hover table-responsive">
+            <thead class="thead-default">
+                <tr>
+                    <th class="heading" width="20%" data-sortable="true">Title</th>
+                    <th class="heading" width="15%">Category</th>
+                    <th class="heading" width="19%">Submission Date</th>
+                    <th class="heading" width="15%">Downloads</th>
+                    <th class="heading" width="10%">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each allSubmissions as |item|}}
+                    {{#if item.canEdit}}
+                        {{my-submissions submission=item}}
+                    {{/if}}
+                {{/each}}
+            </tbody>
+        </table>
+    {{/if}}
+    {{#unless (isEqual conf.submissionCount conf.mySubmissionCount)}}
+        <h5>Submissions to conference</h5>
+        <table class="table table-hover">
+            <thead class="thead">
+                <tr>
+                    <th class="heading" bgcolor="#E0E0E0" width="30%" data-sortable="true">Title</th>
+                    <th class="heading" bgcolor="#E0E0E0" width="15%">Author</th>
+                    <th class="heading" bgcolor="#E0E0E0" width="15%">Category</th>
+                    <th class="heading" bgcolor="#E0E0E0" width="19%">Submission Date</th>
+                    <th class="heading" bgcolor="#E0E0E0" width="15%">Download</th>
+                    <th class="heading" bgcolor="#E0E0E0" width="6%">#</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each allSubmissions as |item|}}
+                    {{#unless item.canEdit}}
+                        <tr bgcolor="FFFFFF">
+                            <td class="tableTitle" scope="row">
+                                <a target="_blank" style="color: #0080ff;" href={{link-to-osf item.id}}>
+                                    {{item.title}}
+                                </a>
+                            </td>
+                            <td style="color: black;">
+                                {{#each item.contributors as |contributor|}}
+                                    {{contributor.users.fullName}}
+                                {{/each}}
+                            </td>
+                            <td class="tableCategory" style="color: #000000">{{item.category}}</td>
+                            <td class="tableDate" style="color: #000000">{{item.dateCreated}}</td>
+                            <td class="tableDownload" style="color: #000000; text-align: center">
+                                <button
+                                    type='btn-success'
+                                    {{action "download" item.fileUrl}}>
+                                    ↓
+                                </button>
+                            </td>
+                            <td class="tableDownloadCount" style="color: #000000">
+                                {{item.downloadCount}}
+                            </td>
+                        </tr>
+                    {{/unless}}
+                {{/each}}
+            </tbody>
+        </table>
+    {{/unless}}
+{{else}}
+    <!-- This needs styling and probably rephrasing -->
+    <div style="color:black; font-size:16px;">
+        No submissions have been made for this conference
+    </div>
+{{/if}}

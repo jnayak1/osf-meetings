@@ -11,9 +11,17 @@ export default Ember.Component.extend({
     },
     resolve : null,
     dropZone : null,
+    fullPreview: null,
     actions : {
         preUpload() {
             var drop = arguments[1];
+            var createThumbnailFromUrl = drop.createThumbnailFromUrl;
+            var _this = this;
+            drop.createThumbnailFromUrl = function(file, imageUrl, callback, crossOrigin){
+                var fullPreview = createThumbnailFromUrl.apply(this, arguments);
+                _this.set("fullPreview", fullPreview);
+                return fullPreview;
+            }
             this.set('dropZone', drop);
             this.sendAction('preUpload', drop);
             return new Ember.RSVP.Promise(resolve => {
@@ -35,6 +43,7 @@ export default Ember.Component.extend({
             };
         },
         success(_this, dropZone, file, successData) {
+            console.log(file);
             this.sendAction('success', dropZone, file, successData);
         },
         error() {

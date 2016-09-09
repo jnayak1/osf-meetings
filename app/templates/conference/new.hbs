@@ -29,6 +29,7 @@
                                 preUpload=(route-action "preUpload")
                                 resolve=resolveUpload
                                 dropZone=drop
+                                fullPreview=fullPreview
                             }}
 
                             {{!-- Keeping Description as normal textarea to allow for twitter style countdown, may have to change this later--}}
@@ -121,49 +122,11 @@
                             </button>
                         </div>
                         <div class="col-md-4">
-                            <button class="btn btn-primary" {{action "preview"}}>Preview</button>
-                            {{#if this.previewOn}}
-                                {{#modal-dialog close="hideform" targetAttachment="center" translucentOverlay=true}}
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="row">
-                                                <div class="conferenceTopContainer col-md-12">
-                                                    <div class="col-md-8 col-md-offset-2">
-                                                        <div class="conferenceInfo">
-                                                            <h1>
-                                                                {{model.newConf.title}}</h1>
-                                                            <h4>
-                                                                {{model.newConf.eventStart}} - {{model.newConf.eventEnd}} </h4>
-                                                            <h4>{{model.newConf.city}},
-                                                                {{model.newConf.state}},
-                                                                {{model.newConf.country}} </h4>
-                                                            <div class="logos"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-8 col-offset-2 conferencePhoto">
-                                                        {{!--TODO: THIS WILL PROBABLY REQUIRE EDITING ONCE FILE UPLOAD IS WORKING CORREFTLY--}}
-                                                        <img
-                                                         src={{model.newConf.logo}}>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row ">
-                                                <div class="col-lg-12">
-                                                    <div class="col-lg-8 col-lg-offset-2">
-                                                        <p
-                                                         class="conference-description">{{model.newConf.description}}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <button class="btn btn-danger" {{action "previewOff"}}>Close
-                                            </button>
-                                            <button class="btn btn-success" disabled={{v-get model.newConf 'isInvalid'}} {{action
-                                                    "createConference" model.newConf}}>Submit
-                                            </button>
-                                        </div>
-                                    </div>
-                                {{/modal-dialog}}
-                            {{/if}}
+                            <button class="btn btn-primary" 
+                            {{action (route-action "preview" model.newConf fullPreview model.previewUpload)}}
+                            data-toggle="modal" data-target="#myModal">
+                                Preview
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -171,3 +134,4 @@
         </div>
     </div>
 </div>
+{{outlet}}

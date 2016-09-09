@@ -14,11 +14,17 @@ export default Ember.Route.extend({
                 },
                 crossDomain : true
             }),
-            newConf : this.store.createRecord('conference')
+            newConf : this.store.createRecord('conference'),
+            previewUpload : this.store.createRecord('upload')
         });
     },
 
     actions: {
+        preview(conference, fullPreview, previewUpload){
+            previewUpload.set('file', fullPreview);
+            conference.set('logo', previewUpload);
+            this.transitionTo('conference.new.preview', conference);
+        },
         back() {
             this.transitionTo('index').then(function(newRoute) {
                 newRoute.controller.set('visited', true);

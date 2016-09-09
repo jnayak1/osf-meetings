@@ -5,9 +5,9 @@
                 <div class="col-md-12">
                     <div class="col-md-8 col-md-offset-2">
                         <div class="conference-info">
-                            {{conference-header conf=model.conf}}
-                            {{conference-add-submission conf=model.conf}}
-                            {{conference-submissions conf=model.conf allSubmissions=model.allSubmissions}}
+                            {{conference-header conf=model}}
+                            {{conference-add-submission conf=model}}
+                            {{conference-submissions conf=model allSubmissions=model}}
                         </div>
                     </div>
                 </div>
@@ -15,4 +15,3 @@
         </div>
     </div>
 </div>
-{{outlet}}
