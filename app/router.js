@@ -9,7 +9,7 @@ Router.map(function() {
   this.route('conference', { path: '/conference' }, function() {
       this.route('index', { path: '/:conference_id' });
       this.route('new', function() {
-        this.route('preview', { path: '/preview/:conference_id' });
+        this.route('preview', { path: '/:conference_id' });
       });
       this.route('submission', { path: '/:conference_id/submission' });
   });

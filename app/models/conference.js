@@ -70,5 +70,6 @@ export default Model.extend(Validations, {
     canEdit: attr('boolean', { defaultValue : ''}),
     submissionCount: attr('number'),
     mySubmissionCount: attr('number'),
-    admin: belongsTo('user')
+    admin: belongsTo('user'),
+    preview: attr('boolean'),
 });
