@@ -1,0 +1,7 @@
+<button class="btn btn-success" disabled={{v-get newConf 'isInvalid'}} 
+{{action "saveConference" newConf drop resolveUpload}}>
+    Create
+</button>
+<button class="btn btn-success" {{action "togglePreview" newConf}}>
+    Back
+</button>

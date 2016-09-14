@@ -24,7 +24,6 @@ export default Ember.Route.extend({
             previewUpload.set('file', fullPreview);
             conference.set('logo', previewUpload);
             conference.set('preview', true);
-            this.transitionTo('conference.new.preview', conference);
         },
         back() {
             this.transitionTo('index').then(function(newRoute) {
@@ -32,6 +31,7 @@ export default Ember.Route.extend({
             });
         },
         saveConference(newConference, drop, resolve) {
+            console.log('hello');
             var router = this;
             newConference.set('logo', null);
             newConference.save().then((conf) => {

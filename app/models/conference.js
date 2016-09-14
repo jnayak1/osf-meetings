@@ -71,5 +71,5 @@ export default Model.extend(Validations, {
     submissionCount: attr('number'),
     mySubmissionCount: attr('number'),
     admin: belongsTo('user'),
-    preview: attr('boolean'),
+    preview: attr('boolean')
 });

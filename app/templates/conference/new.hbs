@@ -1,7 +1,14 @@
 {{#if model.newConf.preview}}
-    {{conference-preview conference=model.newConf}}
+    <div class="conference-view-outer-container">
+        {{conference-preview-bar 
+            newConf=model.newConf 
+            drop=drop 
+            resolveUpload=resolveUpload
+            saveConference="saveConference"
+        }}
+        {{conference-preview conference=model.newConf}}
+    </div>
 {{else}}
-<div class="container-fluid">
     <div class="col-md-12">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
@@ -136,5 +143,4 @@
             </div>
         </div>
     </div>
-</div>
 {{/if}}
