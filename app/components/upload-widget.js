@@ -5,6 +5,7 @@ export default Ember.Component.extend({
     file : null,
     url: null,
     dropzoneOptions : {
+        addRemoveLinks : true,
         uploadMultiple : false,
         xhrFields : { withCredentials : true },
         crossDomain : true
@@ -42,8 +43,11 @@ export default Ember.Component.extend({
                 }
             };
         },
+        removedfile(_this, dropZone, file){
+            this.set('resolve', null);
+            this.sendAction('afterRemovedFile');
+        },
         success(_this, dropZone, file, successData) {
-            console.log(file);
             this.sendAction('success', dropZone, file, successData);
         },
         error() {

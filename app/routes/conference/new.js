@@ -3,7 +3,6 @@ import config from 'ember-get-config';
 
 
 export default Ember.Route.extend({
-
     model() {
         return Ember.RSVP.hash({
                 meta : Ember.$.ajax({
@@ -31,7 +30,6 @@ export default Ember.Route.extend({
             });
         },
         saveConference(newConference, drop, resolve) {
-            console.log('hello');
             var router = this;
             newConference.set('logo', null);
             newConference.save().then((conf) => {
@@ -78,6 +76,9 @@ export default Ember.Route.extend({
                 };
                 this.options.withCredentials = true;
             });
+        },
+        afterRemovedFile(){
+            this.currentModel.newConf.set('logo', null);
         }
     } 
 });

@@ -40,6 +40,7 @@
                                 resolve=resolveUpload
                                 dropZone=drop
                                 fullPreview=fullPreview
+                                afterRemovedFile="afterRemovedFile"
                             }}
 
                             {{!-- Keeping Description as normal textarea to allow for twitter style countdown, may have to change this later--}}
@@ -100,7 +101,6 @@
                         <div class="col-lg-6">
                             <label for="city">End</label>
                             {{bs-datetimepicker date=model.newConf.eventEnd class="form-control" id='endDate'}}
-                            {{model.newConf.eventEnd}}
                         </div>
                     </div>
 
